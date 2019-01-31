@@ -59,12 +59,12 @@ struct SegmentBase : std::pair<T, T>
    inline iterator begin() const { return iterator(first); }
    inline iterator end() const { return iterator(second + IncVal()); }
 
-   static T IncVal();
+   static constexpr T IncVal();
    static const T ZERO_LENGTH;
 };
 
 template<typename T>
-const T SegmentBase<T>::ZERO_LENGTH = SegmentBase<T>::IncVal() - SegmentBase<T>::IncVal();
+constexpr T SegmentBase<T>::ZERO_LENGTH = SegmentBase<T>::IncVal() - SegmentBase<T>::IncVal();
 
 template<typename T> inline SegmentBase<T>::SegmentBase( const T& l, const T& r)
    : std::pair<T,T>( l, r ) {}
@@ -120,7 +120,7 @@ template<typename T> inline bool SegmentBase<T>::operator !=(const SegmentBase<T
 { return !(first == r.first && second == r.second); }
 
 template<typename T>
-inline T SegmentBase<T>::IncVal()
+inline constexpr T SegmentBase<T>::IncVal()
 {
    static_assert( std::is_integral<T>::value || std::is_floating_point<T>::value, "T SegmentBase<T>::IncVal() not implemented" );
    return static_cast<T>(1);

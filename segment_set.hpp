@@ -35,9 +35,9 @@ public:
    using MyParent::cend;
 
 
-   inline SegmentSetBase() : m_length(Segment::ZERO_LENGTH) { static_assert( sizeof( SegmentSetBase<VType> ) > 0, "SegmentTree<VType> unknown size" ); }
-   inline SegmentSetBase( SegmentSetBase&& r) = default;
-   inline SegmentSetBase( const SegmentSetBase& l ) = default;
+   SegmentSetBase() = default;
+   SegmentSetBase( SegmentSetBase&& r) = default;
+   SegmentSetBase( const SegmentSetBase& l ) = default;
    SegmentSetBase& operator=( SegmentSetBase&& r ) = default;
    SegmentSetBase& operator=( const SegmentSetBase& r ) = default;
 
@@ -105,7 +105,7 @@ private:
 
    const_iterator Exists_(const Segment &val ) const;
 
-   VType m_length;
+   VType m_length = Segment::ZERO_LENGTH;
    mutable std::map<Segment, size_t> m_lessThen;
 };
 
