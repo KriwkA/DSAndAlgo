@@ -12,11 +12,11 @@ struct SegmentBase : std::pair<T, T>
 
    struct iterator
    {
-      iterator(){}
-      iterator( iterator &&r ) : m_val( std::move( r.m_val ) ) {}
-      iterator( const iterator &l ) : m_val( l.m_val ) {}
-      iterator& operator=( iterator &&r ) { if( this != &r ) m_val = std::move( r.m_val ); return *this; }
-      iterator& operator=( const iterator &l ) { if( this != &l ) m_val = l.m_val; return *this; }
+      iterator() = default;
+      iterator( iterator &&r ) = default;
+      iterator( const iterator &l ) = default;
+      iterator& operator=( iterator &&r ) = default;
+      iterator& operator=( const iterator &l ) = default;
 
       inline const T& operator*() const { return m_val; }
       inline bool operator==( const iterator& r ) const { return m_val == r.m_val; }
@@ -34,10 +34,11 @@ struct SegmentBase : std::pair<T, T>
    {
       static_assert( sizeof( SegmentBase<T> ) > 0, "SegmentBase<T> unknown size" );
    }
-   inline SegmentBase( const SegmentBase& l ) : std::pair<T,T>( l ) {}
-   inline SegmentBase( SegmentBase&& r ) : std::pair<T,T>( std::move( r ) ) {}
-   inline SegmentBase& operator=( const SegmentBase& l ) { return std::pair<T,T>::operator=(l); }
-   inline SegmentBase& operator=( SegmentBase&& r )  { return std::pair<T,T>::operator=( std::move( r ) ); }
+
+   SegmentBase( const SegmentBase& l ) = default;
+   SegmentBase( SegmentBase&& r ) = default;
+   SegmentBase& operator=( const SegmentBase& l ) = default;
+   SegmentBase& operator=( SegmentBase&& r )  = default;
 
    SegmentBase( const T& l, const T& r );
    bool Merge( const SegmentBase& s );
